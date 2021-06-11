@@ -14,25 +14,28 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => 'api'], function ($router) {
+
+    Route::group(['middleware' => 'cors'], function($router) {
+
+        Route::prefix('love/')->group(function(){
+            Route::get('login', 'Love\ServiceController@login');
+            Route::get('update', 'Love\ServiceController@update');
+            Route::post('upload', 'Love\ServiceController@uploadPicture');
+            Route::get('pictures', 'Love\ServiceController@getPictureList');
+            Route::get('event', 'Love\ServiceController@getEvent');
+            Route::get('finish', 'Love\ServiceController@finishEvent');
+            Route::get('join', 'Love\ServiceController@joinCouple');
+            Route::get('miss', 'Love\ServiceController@miss');
+        });
+
+    });
+
     Route::get('menu', 'MenuController@index');
 
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'AuthController@register');
-
-    Route::resource('notes', 'NotesController');
-    Route::resource('licai', 'LicaiController');
-    Route::get('miyu/login', 'Miyu\ServiceController@login');
-    Route::get('miyu/update', 'Miyu\ServiceController@update');
-    Route::post('miyu/upload', 'Miyu\ServiceController@uploadPicture');
-    Route::get('miyu/pictures', 'Miyu\ServiceController@getPictureList');
-    Route::get('miyu/event', 'Miyu\ServiceController@getEvent');
-    Route::get('miyu/finish', 'Miyu\ServiceController@finishEvent');
-    Route::get('miyu/join', 'Miyu\ServiceController@joinCouple');
-    Route::get('miyu/miss', 'Miyu\ServiceController@miss');
-
-    Route::resource('miyu', 'Miyu\HomeController');
 
     Route::resource('resource/{table}/resource', 'ResourceController');
 

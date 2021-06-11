@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Miyu;
+namespace App\Http\Controllers\Love;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Miyu;
+namespace App\Http\Controllers\Love;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,36 +20,6 @@ class LoginController extends Controller
 
     public $userInfo;
 
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function index(Request $e)
-    {
-        $this->getAccessToken();
-        $this->getUserSession($e);
-
-        return json_encode(['userid' => 1]);
-    }
-
-    public function getAccessToken() {
-
-        $res = Http::withHeaders(['Accept' => 'application/json'])
-            ->get(sprintf(self::ACCESS_TOKEN_URL, self::APPID, self::SECRET));
-
-        $this->access_token = json_decode($res->body(), true)['access_token'];
-    }
-
-    public function getUserSession(Request $request) {
-        $jscode = trim($request->get('code'));
-
-        $res = Http::withHeaders(['Accept' => 'application/json'])
-            ->get(sprintf(self::USER_SESSION_URL, self::APPID, self::SECRET, $jscode));
-
-        $this->userInfo = json_decode($res->body(), true);
-    }
 
     public function sendTemplateMessage() {
         $res = Http::withHeaders(['Accept' => 'application/json'])
